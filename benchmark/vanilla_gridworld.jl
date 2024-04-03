@@ -20,14 +20,11 @@ solver = MCTSSolver(
     rng=RNG
 )
 
-small_mdp = SimpleGridWorld(;size=(10,10))
-small_planner = solve(solver, small_mdp)
-
 GC.enable_logging(false)
 
-# @benchmark benchmark_action(42, $RNG, $mdp, $planner)
+small_mdp = SimpleGridWorld(;size=(10,10))
+small_planner = solve(solver, small_mdp)
 SUITE["vanilla"]["action_small"] = @benchmarkable  benchmark_action(42, $RNG, $small_mdp, $small_planner)
-# SUITE["vanilla"]["action"] = @benchmarkable POMDPs.action($planner, $state)
 
 large_mdp = SimpleGridWorld(;size=(100,1000))
 large_planner = solve(solver, large_mdp)
